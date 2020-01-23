@@ -26,11 +26,6 @@ view: cbswimming_txn {
     sql: ${TABLE}.address_2 ;;
   }
 
-  dimension: amount {
-    type: number
-    sql: ${TABLE}.amount ;;
-  }
-
   dimension: category {
     type: string
     sql: ${TABLE}.category ;;
@@ -104,5 +99,10 @@ view: cbswimming_txn {
   measure: count {
     type: count
     drill_fields: [last_name, first_name]
+  }
+
+  measure: amount {
+    type: sum
+    sql: ${TABLE}.amount ;;
   }
 }
