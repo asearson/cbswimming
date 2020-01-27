@@ -26,6 +26,11 @@ view: cbswimming_txn {
     sql: ${TABLE}.address_2 ;;
   }
 
+  dimension: age {
+    type: number
+    sql: ${TABLE}.age ;;
+  }
+
   dimension: category {
     type: string
     sql: ${TABLE}.category ;;
