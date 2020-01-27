@@ -51,6 +51,15 @@ view: cbswimming_txn {
     sql: ${TABLE}.customer_email ;;
   }
 
+  dimension: name {
+    type: string
+    sql: CONCAT(${TABLE}.first_name, " ", ${TABLE}.last_name) ;;
+    }
+
+measure: individual_count{
+type: count_distinct
+sql:  ${name} ;;
+}
   dimension: first_name {
     type: string
     sql: ${TABLE}.first_name ;;
