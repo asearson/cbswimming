@@ -123,5 +123,6 @@ view: cbswimming_txn {
   measure: avg_age{
     type: average_distinct
     sql_distinct_key: ${age} ;;
+    sql: ${TABLE}.age ;;
   }
 }
