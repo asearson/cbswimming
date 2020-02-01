@@ -120,4 +120,8 @@ view: cbswimming_txn {
     type: count_distinct
     sql:  ${name} ;;
   }
+  dimension: nameageunique {
+    type: number
+    sql: CONCAT({name}, " ", {age}) ;;
+  }
 }
