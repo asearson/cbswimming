@@ -123,6 +123,6 @@ view: cbswimming_txn {
 
   measure: nameageunique {
     type: string
-    sql: CONCAT(${TABLE}.first_name, " ", ${TABLE}.last_name, ${age}, ${transaction_year}) ;;
+    sql: CONCAT(${TABLE}.first_name, " ", ${TABLE}.last_name, ${TABLE}.age, ${transaction_year}) ;;
   }
 }
