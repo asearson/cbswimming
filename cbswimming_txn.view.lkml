@@ -121,8 +121,13 @@ view: cbswimming_txn {
     sql:  ${name} ;;
   }
 
-  measure: nameageunique {
+  dimension: nameageunique {
     type: string
     sql: CONCAT(${TABLE}.first_name, " ", ${TABLE}.last_name, ${TABLE}.age, ${transaction_year}) ;;
+  }
+
+  measure: uniqueage {
+    type: average_distinct
+    sql:  {nameageunique} ;;
   }
 }
