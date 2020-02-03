@@ -1,5 +1,11 @@
 view: cbswimming_txn {
-  sql_table_name: cbswimming.cbswimming_txn ;;
+  derived_table: {
+    sql: SELECT
+        txn.*,
+        row_number() over (partition by txn.cust_id,txn.activity_category,extract(year from txn.txn_date) order by txn.txn_date) as txn_order
+      FROM
+        `ferrous-pact-266018.cbswimming.cbswimming_txn` as txn ;;
+  }
 
   dimension: activity {
     type: string
@@ -101,6 +107,11 @@ view: cbswimming_txn {
     sql: ${TABLE}.txn_date ;;
   }
 
+  dimension: txn_order {
+    type: number
+    sql: ${TABLE}.txn_order ;;
+  }
+
   dimension: withdraw_reason {
     type: string
     sql: ${TABLE}.withdraw_reason ;;
@@ -111,18 +122,28 @@ view: cbswimming_txn {
     drill_fields: [last_name, first_name]
   }
 
+  measure: average_age {
+    type: average
+    sql: ${age} ;;
+  }
+
+  measure: minimum_age {
+    type: min
+    sql: ${age} ;;
+  }
+
   measure: amount {
     type: sum
     sql: ${TABLE}.amount ;;
   }
 
-  measure: individual_count{
+  measure: individual_count {
     type: count_distinct
     sql:  ${name} ;;
   }
 
-  measure: nameageunique {
-    type: string
-    sql: CONCAT(${TABLE}.first_name, " ", ${TABLE}.last_name, ${TABLE}.age, ${transaction_year}) ;;
-  }
+#   measure: nameageunique {
+#     type: string
+#     sql: CONCAT(${TABLE}.first_name, " ", ${TABLE}.last_name, ${TABLE}.age, ${transaction_year}) ;;
+#   }
 }
